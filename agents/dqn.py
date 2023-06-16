@@ -190,36 +190,6 @@ class DQNAgent:
             action = np.argmax(action_values.cpu().data.numpy())
             return action
 
-    def act_for_lime(self, imgs: np.ndarray) -> int:
-        """Specific function to use for with LIME.
-        Predict Q-values for a batch of images with 3 channels (not state that have 4 channels,
-        see utils functions `state_to_image` and `image_to_state`) and apply a softmax over them
-        to simulate probabilities for actions.
-        Note that this function will likely *not* work with another environment than MinAtar/Breakout-v1.
-
-        Parameters
-        ----------
-        imgs: Batch of images of the environment (only 3 channels, see function `state_to_image`)
-
-        Returns
-        -------
-        probabilities: Probabilities of each action for the batch (shape = (batch_size, num_actions))
-
-        Note
-        ----
-        This function is possibly broken as no results were archieved with LIME so far.
-        """
-        probabilities = []
-        for i in range(imgs.shape[0]):
-            state = image_to_state(imgs[i])
-            state = torch.from_numpy(state).float().unsqueeze(0).to(device)
-            with torch.no_grad():
-                values = self.q_network(state)
-            results = softmax(values)
-            probabilities.append(results.numpy())
-        probabilities = np.array(probabilities).squeeze(1)
-        return probabilities
-
     def save(self, path: str, save_memory: bool = True, override: bool = False) -> None:
         """Save the agent to a file.
 
