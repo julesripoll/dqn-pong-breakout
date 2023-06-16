@@ -2,7 +2,7 @@
 
 The goal of this project is to train an agent to play at Atari Breakout game.
 
-We used  the **MinAtar Breakout-v1** environment of the gym library and developed two types of agent : a Deep Q-Learning (DQN) and a Double DQN agents. 
+We used  the **MinAtar Breakout-v1** environment of the gym library and developed two types of agent : a DQN and a Double DQN agent. 
 
 # Structure of the project
 The project is composed of :
